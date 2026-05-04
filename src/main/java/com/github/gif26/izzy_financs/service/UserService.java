@@ -12,8 +12,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public void registerUser(UserDTO dto) {
         userRepository.save(new User(dto));
+//        categoryService.createCategoriesDefault();
     }
-
 }

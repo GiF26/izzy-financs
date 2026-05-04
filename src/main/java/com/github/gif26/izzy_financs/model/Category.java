@@ -18,9 +18,9 @@ public class Category {
     @Column(unique = true)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -30,9 +30,9 @@ public class Category {
         this.description = description;
     }
 
-    public Category(String description, User userId) {
+    public Category(String description, User user) {
         this.description = description;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Category() {
