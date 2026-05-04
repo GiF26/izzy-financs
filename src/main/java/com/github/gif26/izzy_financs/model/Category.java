@@ -14,6 +14,8 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,4 +26,15 @@ public class Category {
     @CreationTimestamp
     private LocalDateTime created_at;
 
+    public Category(String description) {
+        this.description = description;
+    }
+
+    public Category(String description, User userId) {
+        this.description = description;
+        this.userId = userId;
+    }
+
+    public Category() {
+    }
 }
