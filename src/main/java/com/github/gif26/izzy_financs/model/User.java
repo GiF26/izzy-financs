@@ -1,7 +1,9 @@
 package com.github.gif26.izzy_financs.model;
 
+import com.github.gif26.izzy_financs.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,20 +17,16 @@ public class User {
     private String name;
     private String username;
     private String password;
+
+    @Column(updatable = false)
+    @CreationTimestamp
     private LocalDateTime created_at;
 
-    public User(String name, String username, String password) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.created_at = LocalDateTime.now();
+    public User(UserDTO dto) {
+        this.name = dto.name();
+        this.username = dto.username();
+        this.password = dto.password();
     }
     public User(){
     }
-
-//    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-//    name VARCHAR(255) NOT NULL,
-//    username VARCHAR(50) NOT NULL UNIQUE,
-//    password VARCHAR(255) NOT NULL,
-//    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 }
