@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,18 +24,27 @@ public class CategoryService {
 
     public List<CategoryDTO> listAllCategoriesByIdUser(long userId) {
         return categoryRepository.findAllCategories(userId)
-                .stream().map(c -> new CategoryDTO(c.getId(), c.getDescription()))
+                .stream().map(c -> new CategoryDTO(c.getSequenceId(), c.getDescription()))
                 .toList();
     }
 
     public void createCategory( long userId, CategoryDTO dto) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        categoryRepository.save(new Category(dto.description(), user));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        long nextSequence = categoryRepository.findMaxSequenceIdByUserId(userId)
+                .map(max -> max + 1)
+                .orElse(1L);
+
+        Category category = new Category(dto.description(), user, nextSequence);
+        category.setSequenceId(nextSequence);
+
+        categoryRepository.save(category);
     }
 
     @Transactional
     public void updateCategory(Long userId, CategoryDTO dto) {
-        categoryRepository.updateDescription(userId, dto.description(), dto.id());
+        categoryRepository.updateDescription(userId, dto.description(), dto.idSequence());
     }
 
     @Transactional
@@ -46,10 +54,11 @@ public class CategoryService {
 
     @Transactional
     public void createCategoriesDefault(User user) {
-        List<Category> categories = new ArrayList<>();
         for (CategoryEnum cat : CategoryEnum.values()) {
-            categories.add(new Category(cat.getDescricao(), user));
+            long nextSequence = categoryRepository.findMaxSequenceIdByUserId(user.getId())
+                    .map(max -> max + 1)
+                    .orElse(1L);
+            categoryRepository.save(new Category(cat.getDescricao(), user, nextSequence));
         }
-        categoryRepository.saveAll(categories);
     }
 }

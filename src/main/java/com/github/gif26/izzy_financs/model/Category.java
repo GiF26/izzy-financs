@@ -15,6 +15,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long sequenceId;
+
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,9 +29,10 @@ public class Category {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Category(String description, User user) {
+    public Category(String description, User user, Long sequenceId) {
         this.description = description;
         this.user = user;
+        this.sequenceId = sequenceId;
         this.visible = true;
     }
 
