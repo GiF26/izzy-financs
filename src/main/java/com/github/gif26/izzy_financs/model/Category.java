@@ -15,24 +15,22 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime created_at;
+    private boolean visible;
 
-    public Category(String description) {
-        this.description = description;
-    }
+    @Column(updatable = false, name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     public Category(String description, User user) {
         this.description = description;
         this.user = user;
+        this.visible = true;
     }
 
     public Category() {

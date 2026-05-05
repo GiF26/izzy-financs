@@ -18,9 +18,9 @@ public class User {
     private String username;
     private String password;
 
-    @Column(updatable = false)
+    @Column(updatable = false, name = "created_at")
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     public User(UserDTO dto) {
         this.name = dto.name();

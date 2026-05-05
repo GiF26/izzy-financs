@@ -1,0 +1,176 @@
+type: collection.insomnia.rest/5.0
+name: My first collection
+meta:
+  id: wrk_c5b0b3be45bd4964a8eb0de0f3261299
+  created: 1777640801928
+  modified: 1777640801928
+  description: ""
+collection:
+  - name: users
+    meta:
+      id: fld_b3975b8740214783acff2697d89c2b5f
+      created: 1777640809497
+      modified: 1777640809497
+      sortKey: -1777640809497
+      description: ""
+    children:
+      - url: localhost:8080/api/login/register
+        name: createUser
+        meta:
+          id: req_579f0983ebe34480a3ae427eaedc8b44
+          created: 1777640802022
+          modified: 1777941566407
+          isPrivate: false
+          description: ""
+          sortKey: -1777640814059
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Júlia Maria",
+            	"username": "juliamaju@gmail.com",
+            	"password":"456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: categories
+    meta:
+      id: fld_e9eefc34883c40fa8b774978882f9ab9
+      created: 1777775892134
+      modified: 1777775892134
+      sortKey: -1777775892134
+      description: ""
+    children:
+      - url: localhost:8080/api/users/1/categories
+        name: listAllCategoriesByUserAndDefault
+        meta:
+          id: req_f0b8b3bf272049e280ba86064ffd2442
+          created: 1777935851361
+          modified: 1777941632217
+          isPrivate: false
+          description: ""
+          sortKey: -1777935851361
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/api/users/2/categories
+        name: createCategory
+        meta:
+          id: req_ffa36429104b4eafac5e525e4c1b87f0
+          created: 1777935978405
+          modified: 1777940950578
+          isPrivate: false
+          description: ""
+          sortKey: -1777935978405
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"description" : "Skin care"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/api/users/2/categories
+        name: updateDescriptionCategory
+        meta:
+          id: req_addd2f55cbdc4727b676975d7fb2577a
+          created: 1777937418757
+          modified: 1777941672170
+          isPrivate: false
+          description: ""
+          sortKey: -1777937418757
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"description" : "Autocuidado",
+            	"userId" : 2,
+            	"id" : 8
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/api/users/2/categories
+        name: deleteCategory
+        meta:
+          id: req_cfab0ad8cf264be993e58b40ade36648
+          created: 1777938696295
+          modified: 1777941666490
+          isPrivate: false
+          description: ""
+          sortKey: -1777938696295
+        method: DELETE
+        parameters:
+          - id: pair_d88c67a89a6b40129116bcf76c6f70f6
+            name: categoryId
+            value: "8"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_8ba16a56361cdc8985e3f9048405cd74c9dd0bad
+    created: 1777640801933
+    modified: 1777640801933
+environments:
+  name: Base Environment
+  meta:
+    id: env_8ba16a56361cdc8985e3f9048405cd74c9dd0bad
+    created: 1777640801931
+    modified: 1777640801931
+    isPrivate: false

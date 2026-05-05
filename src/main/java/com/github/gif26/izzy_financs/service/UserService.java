@@ -16,7 +16,8 @@ public class UserService {
     private CategoryService categoryService;
 
     public void registerUser(UserDTO dto) {
-        userRepository.save(new User(dto));
-//        categoryService.createCategoriesDefault();
+        User newUser = new User(dto);
+        userRepository.save(newUser);
+        categoryService.createCategoriesDefault(newUser);
     }
 }
