@@ -1,14 +1,38 @@
 type: collection.insomnia.rest/5.0
+schema_version: "5.1"
 name: My first collection
 meta:
-  id: wrk_c5b0b3be45bd4964a8eb0de0f3261299
-  created: 1777640801928
-  modified: 1777640801928
+  id: wrk_3b4f0b5d3ac540d19691fc25cdc16bf0
+  created: 1778151672878
+  modified: 1778151672878
   description: ""
 collection:
+  - url: localhost:8080/api/users/1/transactions
+    name: New Request
+    meta:
+      id: req_b0519406d85f42c1869099903a574bea
+      created: 1778173557260
+      modified: 1778173563391
+      isPrivate: false
+      description: ""
+      sortKey: -1778173557260
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
   - name: users
     meta:
-      id: fld_b3975b8740214783acff2697d89c2b5f
+      id: fld_234de340f88e4b29acab72609771df38
       created: 1777640809497
       modified: 1777640809497
       sortKey: -1777640809497
@@ -17,7 +41,7 @@ collection:
       - url: localhost:8080/api/login/register
         name: createUser
         meta:
-          id: req_579f0983ebe34480a3ae427eaedc8b44
+          id: req_252b5cf25577452482b7756a4044e523
           created: 1777640802022
           modified: 1778072748198
           isPrivate: false
@@ -47,7 +71,7 @@ collection:
           rebuildPath: true
   - name: categories
     meta:
-      id: fld_e9eefc34883c40fa8b774978882f9ab9
+      id: fld_17028f18c162481398844b8a4d821b07
       created: 1777775892134
       modified: 1777775892134
       sortKey: -1777775892134
@@ -56,7 +80,7 @@ collection:
       - url: localhost:8080/api/users/1/categories
         name: listAllCategoriesByUserAndDefault
         meta:
-          id: req_f0b8b3bf272049e280ba86064ffd2442
+          id: req_1830e956240e460c9323f7f9a0100866
           created: 1777935851361
           modified: 1777941632217
           isPrivate: false
@@ -77,7 +101,7 @@ collection:
       - url: localhost:8080/api/users/1/categories
         name: createCategory
         meta:
-          id: req_ffa36429104b4eafac5e525e4c1b87f0
+          id: req_28ea78adbf9b41ff9cb1383c49ac3dd7
           created: 1777935978405
           modified: 1778073060454
           isPrivate: false
@@ -106,7 +130,7 @@ collection:
       - url: localhost:8080/api/users/2/categories
         name: updateDescriptionCategory
         meta:
-          id: req_addd2f55cbdc4727b676975d7fb2577a
+          id: req_25650958fb164562a3cc1fb39fc03c78
           created: 1777937418757
           modified: 1777941672170
           isPrivate: false
@@ -137,7 +161,7 @@ collection:
       - url: localhost:8080/api/users/2/categories
         name: deleteCategory
         meta:
-          id: req_cfab0ad8cf264be993e58b40ade36648
+          id: req_36c5f8f8891844d482b04eb76d85e5df
           created: 1777938696295
           modified: 1777941666490
           isPrivate: false
@@ -145,8 +169,7 @@ collection:
           sortKey: -1777938696295
         method: DELETE
         parameters:
-          - id: pair_d88c67a89a6b40129116bcf76c6f70f6
-            name: categoryId
+          - name: categoryId
             value: "8"
             description: ""
             disabled: false
@@ -161,20 +184,20 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - name: account
+  - name: accounts
     meta:
-      id: fld_e65106fc5d9c4457958d56f1bf7924e7
+      id: fld_021aef792f774412963854007c06bfbc
       created: 1778073432558
-      modified: 1778075044736
+      modified: 1778161042195
       sortKey: -1778073432558
       description: ""
     children:
       - url: localhost:8080/api/users/1/accounts
         name: createAccount
         meta:
-          id: req_2bd771aaee404dc5b36234d80bea63f1
+          id: req_2e5d090279bd453ca2d38c1e4650a4e1
           created: 1778073436064
-          modified: 1778087815093
+          modified: 1778160806293
           isPrivate: false
           description: ""
           sortKey: -1778073436064
@@ -183,7 +206,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"description" : "Banco do Brasil",
+            	"description" : "Inter (Cartão)",
             	"accountType" : 1
             }
         headers:
@@ -202,9 +225,9 @@ collection:
       - url: localhost:8080/api/users/1/accounts
         name: updateAccount
         meta:
-          id: req_ae938cd6bac24e448cda9dad54fd8856
+          id: req_7fc07776b4a340b58881b87eb15874a5
           created: 1778075047975
-          modified: 1778085920023
+          modified: 1778160991571
           isPrivate: false
           description: ""
           sortKey: -1778075047975
@@ -213,9 +236,9 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"id": 2,
-            	"description" : "RecargaPay (Carteira digital)",
-            	"accountType" : 4
+            	"id": 1,
+            	"description" : "Inter (Cartão)",
+            	"accountType" : 2
             }
         headers:
           - name: Content-Type
@@ -233,7 +256,7 @@ collection:
       - url: localhost:8080/api/users/1/accounts
         name: listAccounts
         meta:
-          id: req_a23bab931c3b45298877bfad167240cd
+          id: req_a030a591686e4a4b8752408231503e47
           created: 1778080729415
           modified: 1778086207599
           isPrivate: false
@@ -254,7 +277,7 @@ collection:
       - url: localhost:8080/api/users/1/accounts?accountId=3
         name: deleteAccount
         meta:
-          id: req_a2a45da8c1b04c9db3fe54b6c8ffff1f
+          id: req_5250644a0dc3456095a3af07d1245c73
           created: 1778086512597
           modified: 1778088132783
           isPrivate: false
@@ -262,8 +285,7 @@ collection:
           sortKey: -1778086512597
         method: DELETE
         parameters:
-          - id: pair_02d76d4c8ba646d487a28bc38c80710e
-            name: id
+          - name: id
             value: "3"
             description: ""
             disabled: false
@@ -278,16 +300,60 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: transactions
+    meta:
+      id: fld_3f43f4d3464a4544995b7be7de1de113
+      created: 1778161035995
+      modified: 1778161035995
+      sortKey: -1778161035995
+      description: ""
+    children:
+      - url: localhost:8080/api/users/1/transactions
+        name: New Request
+        meta:
+          id: req_268e89cd4bb04a64a207c9e976a75c28
+          created: 1778172380820
+          modified: 1778172651928
+          isPrivate: false
+          description: ""
+          sortKey: -1778172380820
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            		"id": null,
+                "accountId": 1,
+                "categoryId": 1,
+                "type": 2,
+                "amount": 150.50,
+                "description": "Compras Supermercado"
+              }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_8ba16a56361cdc8985e3f9048405cd74c9dd0bad
+    id: jar_62126789e3614dc79592c6c497341ec1
     created: 1777640801933
     modified: 1777640801933
 environments:
   name: Base Environment
   meta:
-    id: env_8ba16a56361cdc8985e3f9048405cd74c9dd0bad
+    id: env_a2861649a8db47aab46c8e77b9f0c553
     created: 1777640801931
     modified: 1777640801931
     isPrivate: false

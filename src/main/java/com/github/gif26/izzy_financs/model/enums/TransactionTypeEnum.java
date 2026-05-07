@@ -21,4 +21,8 @@ public enum TransactionTypeEnum {
         }
         throw new IllegalArgumentException("No constant with value " + value + " found in table");
     }
+
+    public static int valueOf(TransactionTypeEnum type) {
+        return type.value;
+    }
 }

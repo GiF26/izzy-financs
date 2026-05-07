@@ -3,7 +3,6 @@ package com.github.gif26.izzy_financs.controller;
 import com.github.gif26.izzy_financs.dto.AccountDTO;
 import com.github.gif26.izzy_financs.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
