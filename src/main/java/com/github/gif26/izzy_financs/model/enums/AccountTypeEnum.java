@@ -1,8 +1,10 @@
 package com.github.gif26.izzy_financs.model.enums;
 
 public enum AccountTypeEnum {
-    ENTRADA(1),
-    SAIDA(2);
+    VAZIO(1),
+    CREDITO(2),
+    DEBITO(3),
+    CREDITO_DEBITO(4);
 
     private final int value;
 
@@ -21,5 +23,9 @@ public enum AccountTypeEnum {
             }
         }
         throw new IllegalArgumentException("Tipo não encontrado: " + value);
+    }
+
+    public static int fromEnum(AccountTypeEnum type) {
+        return type.value;
     }
 }

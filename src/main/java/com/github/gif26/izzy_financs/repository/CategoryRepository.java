@@ -37,4 +37,10 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             "FROM Category c " +
             "WHERE c.user.id = :userId")
     Optional<Long> findMaxSequenceIdByUserId(@Param("userId") long userId);
+
+    @Query("SELECT c " +
+            "FROM Category c " +
+            "WHERE c.id = :id " +
+            "AND c.user.id = :userId")
+    Category findByIdAndIdUser(long id, long userId);
 }

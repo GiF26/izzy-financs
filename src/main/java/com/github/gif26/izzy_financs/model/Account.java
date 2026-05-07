@@ -1,6 +1,7 @@
 package com.github.gif26.izzy_financs.model;
 
 import com.github.gif26.izzy_financs.dto.AccountDTO;
+import com.github.gif26.izzy_financs.model.enums.AccountTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,7 @@ public class Account {
     private String description;
 
     @Enumerated(EnumType.ORDINAL)
-    private int accountType;
+    private AccountTypeEnum accountType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -28,7 +29,12 @@ public class Account {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Account(AccountDTO accountDTO) {
+    public Account(User user, AccountDTO dto) {
+        this.description = dto.description();
+        this.accountType = AccountTypeEnum.fromValue(dto.accountType());
+        this.user = user;
+    }
 
+    public Account() {
     }
 }
