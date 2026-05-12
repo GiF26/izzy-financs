@@ -29,5 +29,11 @@ public class TransactionController {
         return ResponseEntity.status(HttpStatus.OK).body(transactions);
     }
 
+//    @PutMapping
+//    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable long userId,
+//                                                            @RequestBody TransactionDTO transactionDTO) {
+//        TransactionDTO transaction = transactionService.updateTransaction(userId, transactionDTO);
+//        return ResponseEntity.ok(transaction);
+//    }
 
 }

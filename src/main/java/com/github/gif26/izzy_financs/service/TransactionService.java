@@ -42,4 +42,9 @@ public class TransactionService {
                 .toList();
         return transactions;
     }
+
+    public TransactionDTO updateTransaction(long userId, TransactionDTO transactionDTO) {
+        Transaction transaction = transactionRepository.findTransactionByTransactionIdAndUserId(transactionDTO.id(), userId);
+
+    }
 }
