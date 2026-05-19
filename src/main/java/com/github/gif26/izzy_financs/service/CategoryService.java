@@ -1,6 +1,9 @@
 package com.github.gif26.izzy_financs.service;
 
-import com.github.gif26.izzy_financs.dto.CategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.CategoryResponseDTO;
+import com.github.gif26.izzy_financs.dto.category.CreateCategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.UpdateCategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.UpdateVisibilityCategoryDTO;
 import com.github.gif26.izzy_financs.model.Category;
 import com.github.gif26.izzy_financs.model.User;
 import com.github.gif26.izzy_financs.model.enums.CategoryEnum;
@@ -22,13 +25,7 @@ public class CategoryService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<CategoryDTO> listAllCategoriesByIdUser(long userId) {
-        return categoryRepository.findAllCategories(userId)
-                .stream().map(c -> new CategoryDTO(c.getSequenceId(), c.getDescription()))
-                .toList();
-    }
-
-    public void createCategory( long userId, CategoryDTO dto) {
+    public void createCategory(long userId, CreateCategoryDTO dto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -36,20 +33,40 @@ public class CategoryService {
                 .map(max -> max + 1)
                 .orElse(1L);
 
-        Category category = new Category(dto.description(), user, nextSequence);
-        category.setSequenceId(nextSequence);
-
-        categoryRepository.save(category);
+        categoryRepository.save(new Category(dto.description(), user, nextSequence));
     }
 
     @Transactional
-    public void updateCategory(Long userId, CategoryDTO dto) {
-        categoryRepository.updateDescription(userId, dto.description(), dto.idSequence());
+    public void updateCategory(Long userId, UpdateCategoryDTO dto) {
+        categoryRepository.updateDescription(userId, dto.description(), dto.sequenceId());
     }
 
     @Transactional
-    public void deleteCategory(Long userId, long id) {
-        categoryRepository.deleteCategory(userId, id);
+    public void updateVisibilityCategory(Long userId, UpdateVisibilityCategoryDTO dto) {
+        categoryRepository.updateVisibility(userId, dto.visible(), dto.sequenceId());
+    }
+
+    @Transactional
+    public void deleteCategory(Long userId, long sequenceId) {
+        categoryRepository.deleteCategory(userId, sequenceId);
+    }
+
+    public List<CategoryResponseDTO> listCategoriesByIdUser(long userId) {
+        return categoryRepository.findCategories(userId)
+                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
+                .toList();
+    }
+
+    public List<CategoryResponseDTO> listActiveCategoriesByIdUser(long userId) {
+        return categoryRepository.findActivesCategories(userId)
+                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
+                .toList();
+    }
+
+    public List<CategoryResponseDTO> listDesactiveCategoriesByIdUser(long userId) {
+        return categoryRepository.findDesactiveCategories(userId)
+                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
+                .toList();
     }
 
     @Transactional

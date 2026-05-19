@@ -1,6 +1,6 @@
 package com.github.gif26.izzy_financs.model;
 
-import com.github.gif26.izzy_financs.dto.AccountDTO;
+import com.github.gif26.izzy_financs.dto.account.CreateAccountDTO;
 import com.github.gif26.izzy_financs.model.enums.AccountTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class Account {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Account(User user, AccountDTO dto) {
+    public Account(User user, CreateAccountDTO dto) {
         this.description = dto.description();
         this.accountType = AccountTypeEnum.fromValue(dto.accountType());
         this.user = user;

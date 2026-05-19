@@ -23,11 +23,11 @@ public class TransactionController {
         return ResponseEntity.ok(transaction);
     }
 
-    @GetMapping
-    public ResponseEntity<List<TransactionDTO>> getTransactions(@PathVariable long userId) {
-        List<TransactionDTO> transactions = transactionService.listTransactions(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(transactions);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<TransactionDTO>> getTransactions(@PathVariable long userId) {
+//        List<TransactionDTO> transactions = transactionService.listTransactions(userId);
+//        return ResponseEntity.status(HttpStatus.OK).body(transactions);
+//    }
 
 //    @PutMapping
 //    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable long userId,

@@ -1,6 +1,7 @@
 package com.github.gif26.izzy_financs.controller;
 
-import com.github.gif26.izzy_financs.dto.UserDTO;
+import com.github.gif26.izzy_financs.dto.user.CreateUserDTO;
+import com.github.gif26.izzy_financs.dto.user.UserResponseDTO;
 import com.github.gif26.izzy_financs.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody UserDTO userDTO) {
-        userService.registerUser(userDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User created!");
+    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody CreateUserDTO userDTO) {
+        UserResponseDTO response = userService.registerUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

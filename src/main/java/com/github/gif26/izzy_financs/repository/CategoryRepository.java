@@ -17,30 +17,46 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             "FROM Category c " +
             "WHERE c.user.id = :userId " +
             "ORDER BY c.id")
-    List<Category> findAllCategories(long userId);
+    List<Category> findCategories(long userId);
+
+    @Query("SELECT c " +
+            "FROM Category c " +
+            "WHERE c.user.id = :userId " +
+            "AND c.visible = true " +
+            "ORDER BY c.id")
+    List<Category> findActivesCategories(long userId);
+
+    @Query("SELECT c " +
+            "FROM Category c " +
+            "WHERE c.user.id = :userId " +
+            "AND c.visible = false " +
+            "ORDER BY c.id")
+    List<Category> findDesactiveCategories(long userId);
 
     @Modifying
     @Query("UPDATE Category c SET c.description = :description " +
             "WHERE c.user.id = :userId " +
-            "AND c.id = :id")
+            "AND c.sequenceId = :sequenceId")
     void updateDescription(@Param("userId") Long userId,
                            @Param("description") String description,
-                           @Param("id") Long id);
+                           @Param("sequenceId") Long sequenceId);
+
+    @Modifying
+    @Query("UPDATE Category c SET c.visible = :visible " +
+            "WHERE c.user.id = :userId " +
+            "AND c.sequenceId = :sequenceId")
+    void updateVisibility(@Param("userId") Long userId,
+                           @Param("visible") boolean visible,
+                           @Param("sequenceId") Long sequenceId);
 
     @Modifying
     @Query("DELETE FROM Category c " +
             "WHERE c.user.id = :userId " +
-            "AND c.id = :id")
-    void deleteCategory(@Param("userId") Long userId, @Param("id") Long id);
+            "AND c.sequenceId = :sequenceId")
+    void deleteCategory(@Param("userId") Long userId, @Param("sequenceId") Long sequenceId);
 
     @Query("SELECT MAX(c.sequenceId) " +
             "FROM Category c " +
             "WHERE c.user.id = :userId")
     Optional<Long> findMaxSequenceIdByUserId(@Param("userId") long userId);
-
-    @Query("SELECT c " +
-            "FROM Category c " +
-            "WHERE c.id = :id " +
-            "AND c.user.id = :userId")
-    Category findByIdAndIdUser(long id, long userId);
 }

@@ -1,6 +1,9 @@
 package com.github.gif26.izzy_financs.controller;
 
-import com.github.gif26.izzy_financs.dto.CategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.CategoryResponseDTO;
+import com.github.gif26.izzy_financs.dto.category.CreateCategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.UpdateCategoryDTO;
+import com.github.gif26.izzy_financs.dto.category.UpdateVisibilityCategoryDTO;
 import com.github.gif26.izzy_financs.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,30 +19,49 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
-    public ResponseEntity<List<CategoryDTO>> listAllCategoriesByIdUser(@PathVariable Long userId) {
-        List<CategoryDTO> categories = categoryService.listAllCategoriesByIdUser(userId);
-        return ResponseEntity.ok().body(categories);
-    }
-
     @PostMapping
-    public ResponseEntity<String> createCategory(@PathVariable Long userId,
-                                                 @RequestBody CategoryDTO dto) {
+    public ResponseEntity<Void> createCategory(@PathVariable Long userId,
+                                                 @RequestBody CreateCategoryDTO dto) {
         categoryService.createCategory(userId, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Category created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
     public ResponseEntity<String> updateCategory(@PathVariable Long userId,
-                                                 @RequestBody CategoryDTO dto) {
+                                                 @RequestBody UpdateCategoryDTO dto) {
         categoryService.updateCategory(userId, dto);
         return ResponseEntity.status(HttpStatus.OK).body("Category updated successfully");
     }
 
+    @PutMapping("/visibility")
+    public ResponseEntity<String> updateVisibilityCategory(@PathVariable Long userId,
+                                                           @RequestBody UpdateVisibilityCategoryDTO dto) {
+        categoryService.updateVisibilityCategory(userId, dto);
+        return ResponseEntity.status(HttpStatus.OK).body("Category updated successfully");
+    }
+
     @DeleteMapping
-    public ResponseEntity<String> deleteCategory(@PathVariable Long userId,
-                                                 @RequestParam Long categoryId) {
-        categoryService.deleteCategory(userId, categoryId);
-        return ResponseEntity.status(HttpStatus.OK).body("Category deleted successfully");
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long userId,
+                                                 @RequestParam Long sequenceId) {
+        categoryService.deleteCategory(userId, sequenceId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryResponseDTO>> listCategoriesByIdUser(@PathVariable Long userId) {
+        List<CategoryResponseDTO> response = categoryService.listCategoriesByIdUser(userId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/actives")
+    public ResponseEntity<List<CategoryResponseDTO>> listActiveCategoriesByIdUser(@PathVariable Long userId) {
+        List<CategoryResponseDTO> response = categoryService.listActiveCategoriesByIdUser(userId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/desactivates")
+    public ResponseEntity<List<CategoryResponseDTO>> listDesactiveCategoriesByIdUser(@PathVariable Long userId) {
+        List<CategoryResponseDTO> response = categoryService.listDesactiveCategoriesByIdUser(userId);
+        return ResponseEntity.ok().body(response);
     }
 }

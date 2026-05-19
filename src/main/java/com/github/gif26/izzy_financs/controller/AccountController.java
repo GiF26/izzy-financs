@@ -1,6 +1,8 @@
 package com.github.gif26.izzy_financs.controller;
 
-import com.github.gif26.izzy_financs.dto.AccountDTO;
+import com.github.gif26.izzy_financs.dto.account.AccountResponseDTO;
+import com.github.gif26.izzy_financs.dto.account.CreateAccountDTO;
+import com.github.gif26.izzy_financs.dto.account.UpdateAccountDTO;
 import com.github.gif26.izzy_financs.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,23 +19,17 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<AccountDTO> createAccount(@PathVariable Long userId,
-                                                    @RequestBody AccountDTO dto) {
-        AccountDTO account = accountService.createAccount(userId, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(account);
+    public ResponseEntity<Void> createAccount(@PathVariable Long userId,
+                                                    @RequestBody CreateAccountDTO dto) {
+        accountService.createAccount(userId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
     public ResponseEntity<String> editAccount (@PathVariable Long userId,
-                                               @RequestBody AccountDTO dto) {
-        accountService.editAccount(userId, dto);
+                                               @RequestBody UpdateAccountDTO dto) {
+        accountService.updateAccount(userId, dto);
         return ResponseEntity.status(HttpStatus.OK).body("Conta editada com sucesso");
-    }
-
-    @GetMapping
-    public ResponseEntity<List<AccountDTO>> listAllAccounts(@PathVariable Long userId) {
-        List<AccountDTO> accounts = accountService.listAllAccounts(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(accounts);
     }
 
     @DeleteMapping
@@ -42,5 +38,11 @@ public class AccountController {
         accountService.deleteAccount(userId, accountId);
         return ResponseEntity.status(HttpStatus.OK).body("Conta deletada com sucesso");
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AccountResponseDTO>> listAllAccounts(@PathVariable Long userId) {
+        List<AccountResponseDTO> response = accountService.listAllAccounts(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

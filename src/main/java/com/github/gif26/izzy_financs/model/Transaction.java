@@ -1,6 +1,6 @@
 package com.github.gif26.izzy_financs.model;
 
-import com.github.gif26.izzy_financs.dto.TransactionDTO;
+import com.github.gif26.izzy_financs.dto.transaction.CreateTransaction;
 import com.github.gif26.izzy_financs.model.enums.TransactionTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -35,10 +35,10 @@ public class Transaction {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public Transaction(TransactionDTO dto, Account account, Category category) {
+    public Transaction(CreateTransaction dto, Account account, Category category) {
         this.account = account;
         this.category = category;
-        this.type = TransactionTypeEnum.valueOf(dto.type());
+        this.type = TransactionTypeEnum.valueOf(dto.transactionType());
         this.amount = dto.amount();
         this.description = dto.description();
     }
