@@ -26,4 +26,13 @@ public interface AccountRepository extends CrudRepository<Account,Long> {
 
     @Modifying
     void deleteAccountByUserAndId(User userId, long accountId);
+
+    @Query("SELECT a " +
+            "FROM Account a " +
+            "WHERE a.user.id = :userId " +
+            "AND a.id = :id")
+    Account findByUserIdAndId(@Param("userId")Long userId,
+                              @Param("id") long id);
+
+    User user(User user);
 }

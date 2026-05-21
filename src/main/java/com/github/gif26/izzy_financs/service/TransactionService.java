@@ -1,10 +1,10 @@
 package com.github.gif26.izzy_financs.service;
 
-import com.github.gif26.izzy_financs.dto.TransactionDTO;
+import com.github.gif26.izzy_financs.dto.transaction.CreateTransactionDTO;
+import com.github.gif26.izzy_financs.dto.transaction.TransactionResponseDTO;
 import com.github.gif26.izzy_financs.model.Account;
 import com.github.gif26.izzy_financs.model.Category;
 import com.github.gif26.izzy_financs.model.Transaction;
-import com.github.gif26.izzy_financs.model.User;
 import com.github.gif26.izzy_financs.model.enums.TransactionTypeEnum;
 import com.github.gif26.izzy_financs.repository.AccountRepository;
 import com.github.gif26.izzy_financs.repository.CategoryRepository;
@@ -26,25 +26,20 @@ public class TransactionService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public TransactionDTO createTransaction(long userId, TransactionDTO transactionDTO) {
-        Account account = accountRepository.findAccountByUserIdAndId(userId, transactionDTO.accountId());
-        Category category = categoryRepository.findByIdAndIdUser(transactionDTO.categoryId(), userId);
-
-        transactionRepository.save(new Transaction(transactionDTO, account, category));
-        return transactionDTO;
+    public void createTransaction(long userId, CreateTransactionDTO dto) {
+        Account account = accountRepository.findByUserIdAndId(userId, dto.idAccount());
+        Category category = categoryRepository.findByUserIdAndSequenceId(userId, dto.idSequenceCategory());
+        Transaction transaction = new Transaction(dto, account, category);
+        transactionRepository.save(transaction);
     }
 
-
-    public List<TransactionDTO> listTransactions(long userId) {
-        List<TransactionDTO> transactions = transactionRepository.findTransactionsByUser(userId)
-                .stream().map(t -> new TransactionDTO(t.getId(), t.getAccount().getId(), t.getCategory().getId(),
-                        TransactionTypeEnum.valueOf(t.getType()), t.getAmount(), t.getDescription()))
+    public List<TransactionResponseDTO> listAllTransactions(long userId) {
+        return transactionRepository.listAllTransactions(userId)
+                .stream().map(t -> new TransactionResponseDTO(t.getId(),
+                        t.getAccount().getId(), t.getAccount().getDescription(),
+                        t.getCategory().getSequenceId(), t.getCategory().getDescription(),
+                        t.getType().getValue(), String.valueOf(TransactionTypeEnum.valueOf(t.getType().getValue())),
+                        t.getDescription(), t.getAmount()))
                 .toList();
-        return transactions;
-    }
-
-    public TransactionDTO updateTransaction(long userId, TransactionDTO transactionDTO) {
-        Transaction transaction = transactionRepository.findTransactionByTransactionIdAndUserId(transactionDTO.id(), userId);
-
     }
 }

@@ -1,9 +1,9 @@
 package com.github.gif26.izzy_financs.controller;
 
-import com.github.gif26.izzy_financs.dto.TransactionDTO;
+import com.github.gif26.izzy_financs.dto.transaction.CreateTransactionDTO;
+import com.github.gif26.izzy_financs.dto.transaction.TransactionResponseDTO;
 import com.github.gif26.izzy_financs.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,23 +17,16 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<TransactionDTO> createTransaction(@PathVariable long userId,
-                                                           @RequestBody TransactionDTO transactionDTO) {
-        TransactionDTO transaction = transactionService.createTransaction(userId, transactionDTO);
-        return ResponseEntity.ok(transaction);
+    public ResponseEntity<Void> createTransaction(@PathVariable long userId,
+                                                  @RequestBody CreateTransactionDTO dto) {
+
+        transactionService.createTransaction(userId, dto);
+        return ResponseEntity.ok().build();
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<TransactionDTO>> getTransactions(@PathVariable long userId) {
-//        List<TransactionDTO> transactions = transactionService.listTransactions(userId);
-//        return ResponseEntity.status(HttpStatus.OK).body(transactions);
-//    }
-
-//    @PutMapping
-//    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable long userId,
-//                                                            @RequestBody TransactionDTO transactionDTO) {
-//        TransactionDTO transaction = transactionService.updateTransaction(userId, transactionDTO);
-//        return ResponseEntity.ok(transaction);
-//    }
-
+    @GetMapping
+    public ResponseEntity<List<TransactionResponseDTO>> getTransactions(@PathVariable long userId) {
+        List<TransactionResponseDTO> responses = transactionService.listAllTransactions(userId);
+        return ResponseEntity.ok().body(responses);
+    }
 }

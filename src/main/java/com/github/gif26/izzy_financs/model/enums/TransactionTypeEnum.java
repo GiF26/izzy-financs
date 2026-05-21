@@ -1,9 +1,9 @@
 package com.github.gif26.izzy_financs.model.enums;
 
 public enum TransactionTypeEnum {
-    VAZIO(1),
-    ENTRADA(2),
-    SAIDA(3);
+    VAZIO(0),
+    ENTRADA(1),
+    SAIDA(2);
 
     private int value;
     TransactionTypeEnum(int value) {

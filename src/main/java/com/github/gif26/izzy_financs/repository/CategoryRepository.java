@@ -33,6 +33,13 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             "ORDER BY c.id")
     List<Category> findDesactiveCategories(long userId);
 
+    @Query("SELECT c  " +
+            "FROM Category c " +
+            "WHERE c.user.id = :userId " +
+            "AND c.sequenceId = :sequenceId")
+    Category findByUserIdAndSequenceId(@Param("userId") long userId,
+                                       @Param("sequenceId") long sequenceId);
+
     @Modifying
     @Query("UPDATE Category c SET c.description = :description " +
             "WHERE c.user.id = :userId " +

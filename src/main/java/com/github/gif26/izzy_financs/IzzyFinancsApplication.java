@@ -14,7 +14,7 @@ public class IzzyFinancsApplication {
 	// * ou fazer o usuario apagar todas as transaçoes
 
 	//******************TODO CLASSE TRANSACAO******************
-	//TODO: Refazer fluxo
+	//TODO: Colocar coluna data
 
 	public static void main(String[] args) {
 		SpringApplication.run(IzzyFinancsApplication.class, args);
