@@ -18,9 +18,9 @@ public class SwaggerConfig {
                         .version("1.0.0")
                         .description("API REST para gestão financeira pessoal. Desenvolvido como projeto de portfólio.")
                         .contact(new Contact()
-                                .name("Seu Nome")
+                                .name("Giovanna Ferreira de Sousa")
                                 .url("https://github.com/gif26")
-                                .email("seu-email@example.com"))
+                                .email("giovannaferreira2603@gmail.com"))
                         .license(new License()
                                 .name("Licença MIT")
                                 .url("https://opensource.org/licenses/MIT")));

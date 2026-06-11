@@ -44,11 +44,12 @@ public class Transaction {
     private LocalDateTime createdAt;
 
     public Transaction(CreateTransactionDTO dto, Account account, Category category) {
+        this.date = dto.date();
         this.account = account;
         this.category = category;
         this.type = TransactionTypeEnum.valueOf(dto.transactionType());
-        this.amount = dto.amount();
         this.description = dto.description();
+        this.amount = dto.amount();
     }
 
     public Transaction() {}

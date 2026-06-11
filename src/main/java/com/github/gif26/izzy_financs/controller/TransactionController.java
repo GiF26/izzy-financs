@@ -2,7 +2,9 @@ package com.github.gif26.izzy_financs.controller;
 
 import com.github.gif26.izzy_financs.dto.transaction.CreateTransactionDTO;
 import com.github.gif26.izzy_financs.dto.transaction.TransactionResponseDTO;
+import com.github.gif26.izzy_financs.dto.transaction.UpdateTransactionDTO;
 import com.github.gif26.izzy_financs.service.TransactionService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,20 @@ public class TransactionController {
                                                   @RequestBody CreateTransactionDTO dto) {
 
         transactionService.createTransaction(userId, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateTransaction(@PathVariable long userId,
+                                                  @RequestBody UpdateTransactionDTO dto) {
+        transactionService.updateTransaction(userId, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteTransaction(@PathVariable long userId,
+                                                  @RequestParam("id") long transactionId) {
+        transactionService.deleteTransaction(userId, transactionId);
         return ResponseEntity.ok().build();
     }
 

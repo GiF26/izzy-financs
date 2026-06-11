@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record CreateTransactionDTO(@NotNull LocalDate transactionDate,
+public record CreateTransactionDTO(@NotNull LocalDate date,
                                    @NotNull long idAccount,
                                    @NotNull long idSequenceCategory,
                                    @NotNull int transactionType,
