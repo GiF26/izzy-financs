@@ -36,26 +36,22 @@ public class TransactionService {
         transactionRepository.save(transaction);
     }
 
-    @Modifying
     @Transactional
     public void updateTransaction(long userId, UpdateTransactionDTO dto) {
-        Transaction oldTransaction = transactionRepository.findByIdAndUserId(dto.id(), userId);
         Account account = accountRepository.findByUserIdAndId(userId, dto.idAccount());
         Category category = categoryRepository.findByUserIdAndSequenceId(userId, dto.idSequenceCategory());
 
-        Transaction newTransaction = new Transaction();
-        newTransaction.setId(oldTransaction.getId());
-        newTransaction.setDate(oldTransaction.getDate());
-        newTransaction.setAccount(account);
-        newTransaction.setCategory(category);
-        newTransaction.setType(TransactionTypeEnum.valueOf(dto.transactionType()));
-        newTransaction.setDescription(dto.description());
-        newTransaction.setAmount(dto.amount());
-        transactionRepository.save(newTransaction);
+        Transaction transaction = transactionRepository.findByIdAndUserId(dto.id(), userId);
+        transaction.setAccount(account);
+        transaction.setCategory(category);
+        transaction.setType(TransactionTypeEnum.valueOf(dto.transactionType()));
+        transaction.setDescription(dto.description());
+        transaction.setAmount(dto.amount());
+        transactionRepository.save(transaction);
     }
 
     public void deleteTransaction(long userId, long transactionId) {
-        transactionRepository.deleteById(transactionId);
+        transactionRepository.deleteByIdAndUserId(userId, transactionId);
     }
 
     public List<TransactionResponseDTO> listAllTransactions(long userId) {

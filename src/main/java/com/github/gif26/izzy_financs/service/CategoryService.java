@@ -29,11 +29,7 @@ public class CategoryService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        long nextSequence = categoryRepository.findMaxSequenceIdByUserId(userId)
-                .map(max -> max + 1)
-                .orElse(1L);
-
-        categoryRepository.save(new Category(dto.description(), user, nextSequence));
+        categoryRepository.save(new Category(dto.description(), user, createSequenceId(userId)));
     }
 
     @Transactional
@@ -52,30 +48,36 @@ public class CategoryService {
     }
 
     public List<CategoryResponseDTO> listCategoriesByIdUser(long userId) {
-        return categoryRepository.findCategories(userId)
-                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
-                .toList();
+        List<Category> categories = categoryRepository.findCategories(userId);
+        return transformCategoryToResponse(categories);
     }
 
     public List<CategoryResponseDTO> listActiveCategoriesByIdUser(long userId) {
-        return categoryRepository.findActivesCategories(userId)
-                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
-                .toList();
+        List<Category> categories =  categoryRepository.findActivesCategories(userId);
+        return transformCategoryToResponse(categories);
     }
 
     public List<CategoryResponseDTO> listDesactiveCategoriesByIdUser(long userId) {
-        return categoryRepository.findDesactiveCategories(userId)
-                .stream().map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
+        List<Category> categories = categoryRepository.findDesactiveCategories(userId);
+        return transformCategoryToResponse(categories);
+    }
+
+    private List<CategoryResponseDTO> transformCategoryToResponse(List<Category> categories) {
+        return categories.stream()
+                .map(c -> new CategoryResponseDTO(c.getSequenceId(), c.getDescription(), c.isVisible()))
                 .toList();
+    }
+
+    private long createSequenceId(long userId) {
+        return categoryRepository.findMaxSequenceIdByUserId(userId)
+                .map(max -> max + 1)
+                .orElse(1L);
     }
 
     @Transactional
     public void createCategoriesDefault(User user) {
         for (CategoryEnum cat : CategoryEnum.values()) {
-            long nextSequence = categoryRepository.findMaxSequenceIdByUserId(user.getId())
-                    .map(max -> max + 1)
-                    .orElse(1L);
-            categoryRepository.save(new Category(cat.getDescricao(), user, nextSequence));
+            categoryRepository.save(new Category(cat.getDescricao(), user, createSequenceId(user.getId())));
         }
     }
 }

@@ -33,6 +33,4 @@ public interface AccountRepository extends CrudRepository<Account,Long> {
             "AND a.id = :id")
     Account findByUserIdAndId(@Param("userId")Long userId,
                               @Param("id") long id);
-
-    User user(User user);
 }

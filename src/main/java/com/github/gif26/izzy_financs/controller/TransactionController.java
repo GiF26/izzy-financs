@@ -4,6 +4,7 @@ import com.github.gif26.izzy_financs.dto.transaction.CreateTransactionDTO;
 import com.github.gif26.izzy_financs.dto.transaction.TransactionResponseDTO;
 import com.github.gif26.izzy_financs.dto.transaction.UpdateTransactionDTO;
 import com.github.gif26.izzy_financs.service.TransactionService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<Void> createTransaction(@PathVariable long userId,
-                                                  @RequestBody CreateTransactionDTO dto) {
+                                                  @Valid @RequestBody CreateTransactionDTO dto) {
 
         transactionService.createTransaction(userId, dto);
         return ResponseEntity.ok().build();
@@ -28,7 +29,7 @@ public class TransactionController {
 
     @PutMapping
     public ResponseEntity<Void> updateTransaction(@PathVariable long userId,
-                                                  @RequestBody UpdateTransactionDTO dto) {
+                                                  @Valid @RequestBody UpdateTransactionDTO dto) {
         transactionService.updateTransaction(userId, dto);
         return ResponseEntity.ok().build();
     }
