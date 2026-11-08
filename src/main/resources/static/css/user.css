@@ -1,0 +1,101 @@
+/* Card Container de Login */
+.user-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+
+.user-card h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Grupos de entrada */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px var(--accent-purple-glow);
+}
+
+.error-message {
+    color: var(--accent-rose);
+    font-size: 0.8rem;
+    margin-top: 0.375rem;
+}
+
+/* Ações e Botões */
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+}
+
+/* Botão Entrar (Roxo com brilho) */
+.btn-primary {
+    background-color: var(--accent-purple);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #7c3aed;
+    box-shadow: 0 0 15px var(--accent-purple-glow);
+}
+
+/* Botão Cadastrar (Verde Esmeralda com brilho) */
+.btn-secondary {
+    background-color: var(--accent-emerald);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #059669;
+    box-shadow: 0 0 15px var(--accent-emerald-glow);
+}

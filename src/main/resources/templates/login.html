@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Izzy Financs - Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon2.png}">
+</head>
+<body>
+
+    <div class="user-card">
+        <h2>Entrar no Izzy Finances</h2>
+
+        <form method="POST" th:action="@{/login}" th:object="${loginRequestDTO}">
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" placeholder="email@gmail.com" required>
+                <span th:errors="*{email}" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" placeholder="****" required>
+                <span th:errors="*{password}" class="error-message"></span>
+            </div>
+
+            <div class="actions">
+                <a th:href="@{/register}" class="btn btn-secondary">Cadastrar</a>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

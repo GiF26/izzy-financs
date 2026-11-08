@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <title>Izzy Financs - Cadastro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon2.png}">
+</head>
+<body>
+    <div class="user-card">
+        <h2>Cadastre-se</h2>
+        <form method="POST" th:action="@{/register}" th:object="${userRequest}">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" th:field="*{name}" placeholder="Nome" required>
+                <span th:errors="*{name}" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" placeholder="email@gmail.com" required>
+                <span th:errors="*{email}" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" placeholder="****" required>
+                <span th:errors="*{password}" class="error-message"></span>
+            </div>
+
+            <div class="actions">
+                <a th:href="@{/login}" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
